@@ -29,7 +29,7 @@ using namespace std;
 
 
 
-void openFile(ifstream& f_passed, struct data);
+void openFile(ifstream& f_passed, ofstream& f_returned);
 void count(struct letts_occurence);
 void printResults();
 
@@ -65,34 +65,50 @@ struct letters {
 
 letters newLetters;
 
-ifstream newFile;
+ifstream readFile;
+ofstream alterFile;
 
 
 
-openFile(newFile, newLetters);
+
+openFile(readFile, alterFile);
 
 }
 
-void openFile(ifstream& f_passed, struct data){
+
+void openFile(ifstream& f_read, ofstream& f_alter){
     
-    string file_name = "";
+    string read_fn = "";
+    string alter_fn = "";
 
 
-    cout << "Please enter name of the file you wish to open (without its extension) :";
-    cin >> file_name;
+    cout << "Please enter name of the file you wish to open (without the extension) :";
+    cin >> read_fn;
 
-   f_passed.open(file_name+".txt");
+     cout << "Please enter name of the file you wish to save the results (without its extension) :";
+    cin >> alter_fn;
 
-   if(f_passed.is_open()){
-       cout << "The file is open seccessfuly \n"; 
 
-     
+   f_read.open(read_fn+".txt");
+   f_alter.open(alter_fn+".txt");
+
+   if(f_read.is_open()){
+       cout << "File " + read_fn +  " is open seccessfuly \n"; 
 
 
    }else{
-     cout << "The input file does not exist.b Try Again \n";
+     cout << "The input file does not exist.\n";
+     exit(0);
    } 
 
+if(f_alter.is_open()){
+       cout << "File " + alter_fn +  " is open seccessfuly \n"; 
+
+
+   }else{
+     cout << "The output file does not exist.\n";
+     exit(0);
+   } 
 
 
 }
