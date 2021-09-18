@@ -18,6 +18,9 @@ Function count: Counts every occurrence of capital letters A-Z and small letters
 
 Function printResult: Prints the number of capital letters and small letters, as well as the percentage of capital letters for every letter A-Z and the percentage of small letters for every letter a-z. The percentages should look like this: "25%".This information must come from an array of structures, and this array must be passed as a parameter.
 Your program should prompt the user for name of the input file, then the name of the output file.
+
+
+A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z.
 */
 
 
@@ -28,87 +31,77 @@ Your program should prompt the user for name of the input file, then the name of
 using namespace std;
 
 
+struct LettersInfo {
+      int id;
+      char letterSymbol;
+      int letterPercentage;
+};
 
-void openFile(ifstream& f_passed, ofstream& f_returned);
-void count(struct letts_occurence);
+
+
+
+void openFile(ifstream& f_read, ofstream& f_alter, struct LettersInfo lettsArray[52]);
+void count(struct LettersInfo lettsArray[52]);
 void printResults();
 
 
 int main() {
 
 
-struct letterInfo {
-      char letterSymbol;
-      int letterPercentage;
-};
 
-// struct lowerLetters{
-//     letterInfo letters;
-// };
-
-// struct upperLetters{
-//     letterInfo letters;
-// };
-
-// struct letters{
-
-// lowerLetters  l_latter;
-// upperLetters u_letter;
- 
-// };
-
-
-
-struct letters {
-  letterInfo allLetters;
-};
-
-letters newLetters;
+LettersInfo lettersArray[52];
 
 ifstream readFile;
 ofstream alterFile;
 
 
+openFile(readFile, alterFile, lettersArray);
 
 
-openFile(readFile, alterFile);
+
+system("pause");
+return 0;
+
 
 }
 
 
-void openFile(ifstream& f_read, ofstream& f_alter){
+void openFile(ifstream& f_read, ofstream& f_alter, struct LettersInfo lettsArray[52]){
     
     string read_fn = "";
     string alter_fn = "";
+    string text = "";
+    int temp;
 
 
-    cout << "Please enter name of the file you wish to open (without the extension) :";
+    cout << "Please enter name of the input and output  files you wish to open, including the extension :";
     cin >> read_fn;
 
-     cout << "Please enter name of the file you wish to save the results (without its extension) :";
     cin >> alter_fn;
 
 
-   f_read.open(read_fn+".txt");
-   f_alter.open(alter_fn+".txt");
+   f_read.open(read_fn);
+   f_alter.open(alter_fn);
 
-   if(f_read.is_open()){
-       cout << "File " + read_fn +  " is open seccessfuly \n"; 
+   if(f_read.is_open() && f_alter){
+       cout << "Files " + read_fn + " and " +  alter_fn +  "  opened seccessfuly \n"; 
 
+        while (f_read >> temp) {
+             text += temp;
+            }
+           cout << text << endl;
+     count(lettsArray);
 
    }else{
      cout << "The input file does not exist.\n";
      exit(0);
    } 
 
-if(f_alter.is_open()){
-       cout << "File " + alter_fn +  " is open seccessfuly \n"; 
 
+}
 
-   }else{
-     cout << "The output file does not exist.\n";
-     exit(0);
-   } 
+void count(struct LettersInfo lettsArray[52]){
+
 
 
 }
